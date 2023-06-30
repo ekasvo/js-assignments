@@ -8,7 +8,6 @@
  ********************************************************************************************/
 
 
-
 /**
  * Returns the result of concatenation of two strings.
  *
@@ -22,7 +21,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    return value1+value2;
+    return value1 + value2;
 }
 
 
@@ -119,7 +118,7 @@ function repeatString(value, count) {
 
 /**
  * Remove the first occurrence of string inside another string
- * 
+ *
  * @param {string} str
  * @param {string} value
  * @return {string}
@@ -145,7 +144,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    return str.slice(1,-1);
+    return str.slice(1, -1);
 }
 
 
@@ -204,9 +203,29 @@ function getRectangleString(width, height) {
     const topLine = '┌' + '─'.repeat(width - 2) + '┐\n';
     const middleLine = '│' + ' '.repeat(width - 2) + '│\n';
     const bottomLine = '└' + '─'.repeat(width - 2) + '┘\n';
+
     return topLine + middleLine.repeat(height - 2) + bottomLine;
 }
 
+let tryEncodeLetter = (a, z, n) => {
+    if ((a.charCodeAt(0) <= n) && (n <= z.charCodeAt(0))) {
+        let alphaNumber = n - a.charCodeAt(0);
+        let encodedAlphaNumber = (alphaNumber + 13) % 26;
+        let encodedUnicodeNumber = encodedAlphaNumber + a.charCodeAt(0);
+        return String.fromCharCode(encodedUnicodeNumber);
+    }
+
+    return null
+}
+
+let encodeChar = (c) => {
+    let unicodeNumber = c.charCodeAt(0)
+    return (
+        tryEncodeLetter('A', 'Z', unicodeNumber) ||
+        tryEncodeLetter('a', 'z', unicodeNumber) ||
+        c
+    );
+}
 
 /**
  * Encode specified string with ROT13 cipher
@@ -224,9 +243,12 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    const flipped = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
-    return str.replace(/[a-z]/gi, letter => flipped[alpha.indexOf(letter)]);
+    let result = '';
+    for (let i = 0; i < str.length; i++) {
+        result += encodeChar(str[i])
+    }
+
+    return result;
 }
 
 /**
@@ -249,23 +271,23 @@ function isString(value) {
 
 /**
  * Returns playid card id.
- * 
+ *
  * Playing cards inittial deck inclides the cards in the following order:
- * 
+ *
  *  'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
  *  'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
  *  'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
  *  'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'
- * 
+ *
  * (see https://en.wikipedia.org/wiki/Standard_52-card_deck)
  * Function returns the zero-based index of specified card in the initial deck above.
- * 
+ *
  * @param {string} value
  * @return {number}
  *
  * @example
  *   'A♣' => 0
- *   '2♣' => 1 
+ *   '2♣' => 1
  *   '3♣' => 2
  *     ...
  *   'Q♠' => 50
@@ -277,6 +299,7 @@ function getCardId(value) {
         'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
         'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'
     ];
+
     return arr.indexOf(value);
 }
 
