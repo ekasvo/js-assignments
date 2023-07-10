@@ -56,7 +56,7 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-    let year = date.getFullYear();
+    const year = date.getFullYear();
 
     return year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0);
 }
@@ -78,12 +78,12 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-    let timespan = endDate - startDate;
-    let milliseconds = timespan % 1000;
-    let seconds = Math.floor((timespan / 1000) % 60);
-    let minutes = Math.floor((timespan / (1000 * 60)) % 60);
-    let hours = Math.floor((timespan / (1000 * 60 * 60)) % 24);
-    let formattedDuration = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}.${padZero(milliseconds, 3)}`;
+    const timespan = endDate - startDate;
+    const milliseconds = timespan % 1000;
+    const seconds = Math.floor((timespan / 1000) % 60);
+    const minutes = Math.floor((timespan / (1000 * 60)) % 60);
+    const hours = Math.floor((timespan / (1000 * 60 * 60)) % 24);
+    const formattedDuration = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}.${padZero(milliseconds, 3)}`;
 
     return formattedDuration;
 }
@@ -107,11 +107,11 @@ function padZero(value, length = 2) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    let hours = date.getUTCHours();
-    let minutes = date.getUTCMinutes();
-    let angleDegrees = Math.abs(0.5 * (60 * hours + minutes) - 6 * minutes) % 360;
-    let sharAngle = angleDegrees > 180 ? Math.abs(360 - angleDegrees) : angleDegrees;
-    let angleRadians = sharAngle * (Math.PI / 180);
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+    const angleDegrees = Math.abs(0.5 * (60 * hours + minutes) - 6 * minutes) % 360;
+    const sharAngle = angleDegrees > 180 ? Math.abs(360 - angleDegrees) : angleDegrees;
+    const angleRadians = sharAngle * (Math.PI / 180);
 
     return angleRadians;
 }
