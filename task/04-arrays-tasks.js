@@ -102,7 +102,7 @@ function getArrayOfStrings(arr) {
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
 function removeFalsyValues(arr) {
-    return arr.filter(v => Boolean(v) == true);
+    return arr.filter(v => v);
 }
 
 /**
@@ -200,7 +200,7 @@ function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 function toCsvText(arr) {
-    return arr.map(row => row.join(',')).join("\n");
+    return arr.join("\n");
 }
 
 /**
@@ -234,15 +234,10 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-    const result = [];
-    arr.reduce((accumulator, current) => {
-        const total = accumulator + current;
-        result.push(total);
-
-        return total;
-    }, 0)
-
-    return result;
+    return arr.reduce((accumulator, current, currentIndex) => {
+        accumulator.push((accumulator[currentIndex - 1] || 0) + current);
+        return accumulator;
+    }, []);
 }
 
 /**
@@ -257,7 +252,7 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-    return arr.filter(value => arr.indexOf(value) % 2 !== 0);
+    return arr.filter((_, index) => index % 2 !== 0);
 }
 
 
@@ -376,7 +371,7 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-    return arr.filter(v => Boolean(v) == false).length;
+    return arr.filter(v => !v).length;
 }
 
 /**
@@ -409,7 +404,7 @@ function findAllOccurences(arr, item) {
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
 function toStringList(arr) {
-    return arr.join(',');
+    return arr.join();
 }
 
 
