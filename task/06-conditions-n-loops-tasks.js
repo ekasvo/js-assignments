@@ -30,11 +30,15 @@
  *
  */
 function getFizzBuzz(num) {
-    if (num % 3 === 0 && num % 5 === 0) {
+    if (num % 15 === 0) {
         return 'FizzBuzz';
-    } else if (num % 3 === 0) {
+    }
+
+    if (num % 3 === 0) {
         return 'Fizz';
-    } else if (num % 5 === 0) {
+    }
+
+    if (num % 5 === 0) {
         return 'Buzz';
     }
 
@@ -228,8 +232,8 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    const startBracket = isStartIncluded ? `[` : `(`;
-    const endBracket = isEndIncluded ? `]` : `)`;
+    const startBracket = isStartIncluded ? '[' : '(';
+    const endBracket = isEndIncluded ? ']' : ')';
     const interval = a < b ? `${a}, ${b}` : `${b}, ${a}`;
 
     return `${startBracket}${interval}${endBracket}`;
@@ -380,7 +384,7 @@ function isBracketsBalanced(str) {
         }
     }
 
-    return stack.length === 0 ? true : false;
+    return stack.length === 0;
 }
 
 
